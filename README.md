@@ -17,8 +17,12 @@ Players will control the footballers with arrow keys, left, up and right, or w,a
 
 When a footballer connects with the ball, the ball will be kicked in the angle of approach to its head.
 
-In order to spice things up, different balls and goal sizes will be set each round.
+In order to spice things up, different balls and goal sizes will be set each round, if random mode is selected.
 
 If a player scores a goal, the scoreboard will be updated.
 
-Different design of heads will be implemented.
+Different design of heads will be implemented, users will be able to choose  their player's skins.
+
+There will be 2 power-ups: faster movement and fireball. The first will double the movement speed of the player and the latter
+will make the player hit the ball twice as harder. Those powerups will take a short duration and will be on cooldown after
+its usage.
