@@ -1,22 +1,39 @@
 package sample;
 
+import javafx.scene.image.Image;
+
 public abstract class GameObject {
 
-    private double getPositionX() {
+    public Image getVision() {
+        vision = new Image(getImageUrl());
+        return vision;
+    }
+
+    private Image vision;
+
+    public GameObject(double positionX,double positionY,String imageUrl){
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.ImageUrl = imageUrl;
+        vision = new Image(imageUrl);
+
+    }
+
+    public double getPositionX() {
         return positionX;
     }
 
-    private void setPositionX(double positionX) {
+    public void setPositionX(double positionX) {
         this.positionX = positionX;
     }
 
     private double positionX;
 
-    private double getPositionY() {
+    public double getPositionY() {
         return positionY;
     }
 
-    private void setPositionY(double positionY) {
+    public void setPositionY(double positionY) {
         this.positionY = positionY;
     }
 
