@@ -13,6 +13,14 @@ import java.io.IOException;
 
 public class Main_Menu_Controller {
     @FXML
+    private void openPlayerSelect(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Parent root= FXMLLoader.load(getClass().getResource("player_select.fxml"));
+        stage.setScene(new Scene(root, 1280, 720));
+        stage.show();
+    }
+
+    @FXML
     private void openOptions(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Parent root= FXMLLoader.load(getClass().getResource("options.fxml"));
