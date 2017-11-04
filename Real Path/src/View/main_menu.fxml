@@ -14,7 +14,7 @@
             <Image url="@background/main_menu_2.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="1000.0" layoutY="135.0" mnemonicParsing="false" opacity="0.6" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color:: tr;" text="Play" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+      <Button layoutX="1000.0" layoutY="135.0" mnemonicParsing="false" onAction="#openPlayerSelect" opacity="0.6" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color:: tr;" text="Play" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <font>
             <Font name="Century" size="17.0" />
          </font>
