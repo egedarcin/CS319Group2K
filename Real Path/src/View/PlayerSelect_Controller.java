@@ -19,4 +19,5 @@ public class PlayerSelect_Controller {
         stage.setScene(new Scene(root, 1280, 720));
         stage.show();
     }
+
 }
