@@ -8,15 +8,14 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 public class GameManager {
 
-    public static final World world = new World(new Vec2(0.0f, -40.0f));
+    public static final World world = new World(new Vec2(0.0f, -250.0f));
 
     //Screen width and height
     public static final int WIDTH = 1366;
-    public static final int HEIGHT = 768;
+    public static final int HEIGHT = 768 ;
 
     //Ball radius in pixel
-    public static final int BALL_RADIUS = 70;
-
+    public static final int BALL_RADIUS =64;
 
     public static void addGround(float width, float height){
         PolygonShape ps = new PolygonShape();
@@ -24,7 +23,7 @@ public class GameManager {
 
         FixtureDef fd = new FixtureDef();
         fd.shape = ps;
-
+        fd.friction = 0.9f;
         BodyDef bd = new BodyDef();
         bd.position= new Vec2(0.0f,-10f);
 
@@ -33,23 +32,22 @@ public class GameManager {
     }
     public static void addWall(float posX, float posY, float width, float height){
         PolygonShape ps = new PolygonShape();
-
-
         ps.setAsBox(width,height);
+
 
         FixtureDef fd = new FixtureDef();
         fd.shape = ps;
-        fd.density = 1.0f;
-        fd.friction = 0.4f;
+
+        fd.friction = 0.9f;
 
         BodyDef bd = new BodyDef();
         bd.position.set(posX, posY);
+        world.createBody(bd).createFixture(fd);
 
-        GameManager.world.createBody(bd).createFixture(fd);
     }
 
     public static float toPixelPosX(float posX) {
-        float x = WIDTH*posX / 100.0f;
+        float x = WIDTH*posX / 1366f;
         return x;
     }
 
@@ -61,7 +59,7 @@ public class GameManager {
 
     //Convert a JBox2D y coordinate to a JavaFX pixel y coordinate
     public static float toPixelPosY(float posY) {
-        float y = HEIGHT - (1.0f*HEIGHT) * posY / 100.0f;
+        float y = HEIGHT - (1.0f*HEIGHT) * posY / 768f;
         return y;
     }
 
@@ -80,7 +78,4 @@ public class GameManager {
     public static float toPixelHeight(float height) {
         return HEIGHT*height/100.0f;
     }
-
-
-
 }
