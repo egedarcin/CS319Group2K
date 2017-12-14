@@ -1,4 +1,8 @@
 package Controller;
+import Modal.Ball;
+import Modal.GameData;
+import Modal.Goals;
+import Modal.Headballer;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -8,46 +12,284 @@ import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 public class GameManager {
 
-    public static final World world = new World(new Vec2(0.0f, -250.0f));
+    private GameData data = new GameData();
+
+    public GameData getData() {
+        return data;
+    }
+
+    public GamePhysics getPhysics() {
+        return physics;
+    }
+
+    public InputManager getInManager() {
+        return inManager;
+    }
+
+    private GamePhysics physics = new GamePhysics();
+    private InputManager inManager = new InputManager();
+    public static final Vec2 initialHeadballer1Pos   = new Vec2(100,48);
+    public static final Vec2 initialHeadballer2Pos   = new Vec2(1000,48);
+    public static final Vec2 initialBallPos   = new Vec2(600,600);
 
     //Screen width and height
-    public static final int WIDTH = 1366;
-    public static final int HEIGHT = 768 ;
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720 ;
+
+    public static final int HEADSIZE = 48;
+
 
     //Ball radius in pixel
-    public static final int BALL_RADIUS =64;
+    private int BALL_RADIUS = 32 ;
 
-    public static void addGround(float width, float height){
-        PolygonShape ps = new PolygonShape();
-        ps.setAsBox(width,height);
 
-        FixtureDef fd = new FixtureDef();
-        fd.shape = ps;
-        fd.friction = 0.9f;
-        BodyDef bd = new BodyDef();
-        bd.position= new Vec2(0.0f,-10f);
 
-        world.createBody(bd).createFixture(fd);
+
+
+
+
+    private   World world ;
+    private  Headballer headballer1;
+    private  Headballer headballer2;
+    private Ball ball;
+    private Goals goal1;
+    private Goals goal2;
+
+
+
+    private int gameMode;
+    private  float gravity = -300.0f;
+    private float groundFriction;
+    private int selectedChar1;
+    private int selectedChar2;
+    private  int selectedBall;
+    private int selectedBackground;
+    private String hb1Url;
+    private String hb2Url;
+    private String ballUrl;
+    private String backUrl;
+
+
+
+
+
+
+
+
+    public boolean goalScored()
+    {
+       Body ball =  (Body)(this.getBall().getUserData());
+       Body goal1 = (Body)(this.getGoal1().getUserData());
+       Body goal2 = (Body)(this.getGoal2().getUserData());
+
+       if((ball.getPosition().x< goal1.getPosition().x + (getGoal1().getWidth()))&&
+               (ball.getPosition().y< goal1.getPosition().y ))
+       {
+            data.updateScore(data.getScore1(),data.getScore2()+1);
+            resetScene();
+            return true;
+       }
+
+       else if((ball.getPosition().x> goal2.getPosition().x )&&
+               (ball.getPosition().y< goal2.getPosition().y  ))
+       {
+           data.updateScore(data.getScore1()+1,data.getScore2());
+           resetScene();
+           return true;
+       }
+       return false;
+    }
+
+
+    public void resetScene()
+    {
+        Body hb1 = (Body)this.getHeadballer1().getUserData();
+        Body hb2 = (Body)this.getHeadballer2().getUserData();
+        Body ball = (Body)this.getBall().getUserData();
+
+        hb1.getPosition().set(initialHeadballer1Pos);
+        hb2.getPosition().set(initialHeadballer2Pos);
+        ball.getPosition().set(initialBallPos);
 
     }
-    public static void addWall(float posX, float posY, float width, float height){
-        PolygonShape ps = new PolygonShape();
-        ps.setAsBox(width,height);
 
+    public void newGame()
+    {
+        this.setWorld( new World(new Vec2(0.0f, this.getGravity())));
+        headballer1 = new Headballer(initialHeadballer1Pos.x,initialHeadballer1Pos.y, HEADSIZE,"1.png"/*getHb1Url()*/,this);
+        headballer2 = new Headballer(initialHeadballer2Pos.x,initialHeadballer2Pos.y,HEADSIZE,"11.png"/*getHb2Url()*/,this);
+        ball = new Ball(initialBallPos.x,initialBallPos.y,getBALL_RADIUS(),"ball.png"/*getBallUrl()*/,this);
 
-        FixtureDef fd = new FixtureDef();
-        fd.shape = ps;
+        //Add ground to the application, this is where balls will land
+        physics.addGround(GameManager.WIDTH, 10.0f, this.world);
 
-        fd.friction = 0.9f;
-
-        BodyDef bd = new BodyDef();
-        bd.position.set(posX, posY);
-        world.createBody(bd).createFixture(fd);
+        //Add left and right walls so balls will not move outside the viewing area.
+        physics.addWall(0,GameManager.HEIGHT,1f,GameManager.HEIGHT,this.world); //Left wall
+        physics.addWall(GameManager.WIDTH,GameManager.HEIGHT,1f,GameManager.HEIGHT,this.world); //Right wall
+        physics.addWall(0,GameManager.HEIGHT, GameManager.WIDTH,1f,this.world); // Top wall
 
     }
+
+   public boolean isFinished()
+   {
+        if(data.getScore1()==data.getScoreLimit())
+        {
+            //player1 won
+            endGame();
+            return true;
+        }
+
+        else if (data.getScore2()==data.getScoreLimit())
+        {
+            //player2 won
+            endGame();
+            return true;
+        }
+
+        else if(data.getCurrentTime()>=data.getTimeLimit())
+        {
+            if(data.getScore1()>data.getScore2()){/*player1 won*/ }
+            if(data.getScore1()<data.getScore2()){/*player2 won*/ }
+            if(data.getScore1()==data.getScore2()){/*noone won*/ }
+            endGame();
+            return true;
+        }
+        return false;
+   }
+
+   public void endGame()
+   {}
+
+   public void checkPowerups(){}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public Goals getGoal1() {
+        return goal1;
+    }
+
+    public void setGoal1(Goals goal1) {
+        this.goal1 = goal1;
+    }
+
+    public Goals getGoal2() {
+        return goal2;
+    }
+
+    public void setGoal2(Goals goal2) {
+        this.goal2 = goal2;
+    }
+
+    public int getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(int gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public float getGravity() {
+        return gravity;
+    }
+
+    public void setGravity(float gravity) {
+        this.gravity = gravity;
+    }
+
+    public float getGroundFriction() {
+        return groundFriction;
+    }
+
+    public void setGroundFriction(float groundFriction) {
+        this.groundFriction = groundFriction;
+    }
+
+    public int getSelectedChar1() {
+        return selectedChar1;
+    }
+
+    public void setSelectedChar1(int selectedChar1) {
+        this.selectedChar1 = selectedChar1;
+    }
+
+    public int getSelectedChar2() {
+        return selectedChar2;
+    }
+
+    public void setSelectedChar2(int selectedChar2) {
+        this.selectedChar2 = selectedChar2;
+    }
+
+    public int getSelectedBall() {
+        return selectedBall;
+    }
+
+    public void setSelectedBall(int selectedBall) {
+        this.selectedBall = selectedBall;
+    }
+
+    public int getSelectedBackground() {
+        return selectedBackground;
+    }
+
+    public void setSelectedBackground(int selectedBackground) {
+        this.selectedBackground = selectedBackground;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+    public Headballer getHeadballer1() {
+        return headballer1;
+    }
+
+    public void setHeadballer1(Headballer headballer1) {
+        this.headballer1 = headballer1;
+    }
+
+    public Headballer getHeadballer2() {
+        return headballer2;
+    }
+
+    public void setHeadballer2(Headballer headballer2) {
+        this.headballer2 = headballer2;
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public void setBall(Ball ball) {
+        this.ball = ball;
+    }
+
+
 
     public static float toPixelPosX(float posX) {
-        float x = WIDTH*posX / 1366f;
+        float x = WIDTH*posX / 1280f;
         return x;
     }
 
@@ -59,7 +301,7 @@ public class GameManager {
 
     //Convert a JBox2D y coordinate to a JavaFX pixel y coordinate
     public static float toPixelPosY(float posY) {
-        float y = HEIGHT - (1.0f*HEIGHT) * posY / 768f;
+        float y = HEIGHT - (1.0f*HEIGHT) * posY / 720f;
         return y;
     }
 
@@ -78,4 +320,43 @@ public class GameManager {
     public static float toPixelHeight(float height) {
         return HEIGHT*height/100.0f;
     }
+    public String getHb1Url() {
+        return hb1Url;
+    }
+
+    public void setHb1Url(String hb1Url) {
+        this.hb1Url = hb1Url;
+    }
+
+    public String getHb2Url() {
+        return hb2Url;
+    }
+
+    public void setHb2Url(String hb2Url) {
+        this.hb2Url = hb2Url;
+    }
+
+    public String getBallUrl() {
+        return ballUrl;
+    }
+
+    public void setBallUrl(String ballUrl) {
+        this.ballUrl = ballUrl;
+    }
+
+    public String getBackUrl() {
+        return backUrl;
+    }
+
+    public void setBackUrl(String backUrl) {
+        this.backUrl = backUrl;
+    }
+    public int getBALL_RADIUS() {
+        return BALL_RADIUS;
+    }
+
+    public void setBALL_RADIUS(int BALL_RADIUS) {
+        this.BALL_RADIUS = BALL_RADIUS;
+    }
+
 }
