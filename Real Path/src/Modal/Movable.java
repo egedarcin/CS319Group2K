@@ -1,4 +1,12 @@
 package Modal;
 
-public class Movable {
+
+
+public interface Movable{
+
+public void create();
+
+
+
+
 }
