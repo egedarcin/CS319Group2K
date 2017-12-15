@@ -73,13 +73,6 @@ public class GameManager {
     private String ballUrl;
     private String backUrl;
 
-
-
-
-
-
-
-
     public boolean goalScored()
     {
        Body ball =  (Body)(this.getBall().getUserData());
