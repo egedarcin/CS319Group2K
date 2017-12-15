@@ -7,21 +7,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class PlayerSelect_Controller {
     @FXML
-    ToggleGroup playerOne;
+    ToggleGroup playerOne, playerTwo, gameMode, ballSelection, mapSelection;
     @FXML
-    ToggleGroup playerTwo;
-    @FXML
-    ToggleGroup gameMode;
-
-
+    TextField scoreLimit, timeLimit;
+    private static final int maxLimit = 9; // max limit for time and score
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
@@ -33,13 +29,11 @@ public class PlayerSelect_Controller {
 
     @FXML
     private void Start(ActionEvent event) throws IOException {
-        RadioButton playerOneToggle = (RadioButton)playerOne.getSelectedToggle();
-        RadioButton playerTwoToggle = (RadioButton)playerTwo.getSelectedToggle();
-        RadioButton gameModeToggle = (RadioButton)gameMode.getSelectedToggle();
-
-        System.out.println("Player One: " + playerOneToggle.getEllipsisString());
-        System.out.println("Player Two: " + playerTwoToggle.getEllipsisString());
-        System.out.println("Game Mode: " + gameModeToggle.getText());
+        RadioButton playerOneToggle = (RadioButton) playerOne.getSelectedToggle();
+        RadioButton playerTwoToggle = (RadioButton) playerTwo.getSelectedToggle();
+        RadioButton gameModeToggle = (RadioButton) gameMode.getSelectedToggle();
+        RadioButton ballToggle = (RadioButton) ballSelection.getSelectedToggle();
+        RadioButton mapToggle = (RadioButton) mapSelection.getSelectedToggle();
 
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -48,38 +42,48 @@ public class PlayerSelect_Controller {
         Scene scene = (new GameScene()).getScene(manager);
         stage.setTitle("Head Ball");
 
-        stage.setFullScreen(false);
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.show();
+        // passing user's selections to game manager
+        manager.setGameMode(Integer.parseInt(gameModeToggle.getEllipsisString()));
+        manager.setSelectedBall(Integer.parseInt(ballToggle.getEllipsisString()));
+        manager.setSelectedChar1(Integer.parseInt(playerOneToggle.getEllipsisString()));
+        manager.setSelectedChar2(Integer.parseInt(playerTwoToggle.getEllipsisString()));
+        manager.setSelectedBackground(Integer.parseInt(mapToggle.getEllipsisString()));
 
-        /*
-        GameScene gameScene = new GameScene();
-        Scene scene = gameScene.getScene();
-        stage.setScene(scene);
-        stage.show();
-        */
-    }
-/*
-    @FXML
-    private void goBack(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("main_menu.fxml"));
-        stage.setScene(new Scene(root, 1280, 720));
-        stage.show();
-    }
-    @FXML
-    private void start(ActionEvent event) throws IOException {
-        GameManager manager = new GameManager();
-        Stage stage = new Stage();
-        manager.newGame();
-        Scene scene =  (new GameScene()).getScene(manager);
-        stage.setTitle("Head Ball");
+//        manager.setSelectedTimeLimit(Integer.parseInt(timeLimit.getText()));
+//        manager.setSelectedScoreLimit(Integer.parseInt(scoreLimit.getText()));
 
         stage.setFullScreen(false);
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
-*/
+
+    // if user input exceeds the max limit
+    // then replace input with the max limit
+    @FXML
+    private void increaseTimeLimit(ActionEvent event) throws IOException {
+        if (!(Integer.parseInt(timeLimit.getText()) >= maxLimit))
+            timeLimit.setText(Integer.toString((Integer.parseInt(timeLimit.getText())) + 1));
+    }
+
+    @FXML
+    private void decreaseTimeLimit(ActionEvent event) throws IOException {
+        if (!(Integer.parseInt(timeLimit.getText()) <= 1))
+            timeLimit.setText(Integer.toString((Integer.parseInt(timeLimit.getText())) - 1));
+    }
+
+    @FXML
+    private void increaseScoreLimit(ActionEvent event) throws IOException {
+        if (!(Integer.parseInt(scoreLimit.getText()) >= maxLimit))
+            scoreLimit.setText(Integer.toString((Integer.parseInt(scoreLimit.getText())) + 1));
+    }
+
+    @FXML
+    private void decreaseScoreLimit(ActionEvent event) throws IOException {
+        if (!(Integer.parseInt(scoreLimit.getText()) <= 1))
+            scoreLimit.setText(Integer.toString((Integer.parseInt(scoreLimit.getText())) - 1));
+
+
+    }
 }
+
