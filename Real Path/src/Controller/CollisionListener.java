@@ -38,7 +38,7 @@
                 if(contact.m_fixtureA.m_density!=contact.m_fixtureB.m_density)
 
                 {
-                   // GamePhysics.setThereKick(true);
+                   GamePhysics.setThereKick(true);
 
 
 
@@ -51,7 +51,8 @@
 
                         vec.set(k*vec.x,k*vec.y);
                         Vec2 point = contact.m_fixtureB.m_body.getWorldCenter();
-                        contact.m_fixtureB.m_body.applyLinearImpulse(vec,point);
+                        if(contact.m_fixtureB.m_body.m_type!=BodyType.STATIC){
+                        contact.m_fixtureB.m_body.applyLinearImpulse(vec,point);}
 
                     }
 

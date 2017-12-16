@@ -42,7 +42,7 @@ public class Ball extends Map implements Movable {
         fd.density = 1.0f;
         fd.friction = 0.3f;
         if(ballKind == 1 ){ fd.restitution = 1.0f;}
-        else if(ballKind == 2){fd.restitution=15.0f; }
+        else if(ballKind == 2){fd.restitution=7.0f; }
 
 
         /**

@@ -15,6 +15,9 @@ public class GamePhysics {
 
     public static void setThereKick(boolean thereKick) {
         isThereKick = thereKick;
+        if (thereKick){
+            SoundManager.kickSound();
+        }
     }
 
     public void addWall(float posX, float posY, float width, float height, World world){
@@ -38,7 +41,7 @@ public class GamePhysics {
 
         FixtureDef fd = new FixtureDef();
         fd.shape = ps;
-        fd.friction = 0.4f;
+        fd.friction = 0f;
         BodyDef bd = new BodyDef();
         bd.position= new Vec2(0.0f,0f);
 

@@ -1,14 +1,20 @@
 package Controller;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import java.io.File;
+
+import javafx.scene.media.AudioClip;
 
 public class SoundManager {
 
-
-    String musicFile1 = "/kick.mp3";     // For example
-
-    Media sound = new Media(new File(musicFile1).toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(sound);
-    mediaPlayer.play();
+    public static void kickSound(){
+        AudioClip kickSound = new AudioClip("/ballKick.mp3");
+        kickSound.play();
+    }
+    public static void playGameSound(){
+        AudioClip gameSound = new AudioClip("/gameSound.mp3");
+        gameSound.play();
+    }
+    public static void goalVoice(){
+        AudioClip goalSound = new AudioClip("/cheering.wav");
+        goalSound.play();
+    }
 }
+

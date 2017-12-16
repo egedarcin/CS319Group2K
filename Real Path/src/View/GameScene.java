@@ -3,6 +3,7 @@ package View;
 import Controller.GameManager;
 
 import Controller.InputManager;
+import Controller.SoundManager;
 import Modal.Ball;
 import Modal.GameData;
 import Modal.Headballer;
@@ -36,6 +37,7 @@ private long StartTime2;
 private boolean goal = false;
 private boolean isFinished = false;
 private boolean win = false;
+
  public GameScene(){
 
 
@@ -50,7 +52,7 @@ public Scene getScene(GameManager manager) {
     Scene scene = new Scene(root, GameManager.WIDTH, GameManager.HEIGHT);
 
 
-
+    Label timeLabel = new Label();
     Label label = new Label();
     label.setText(manager.getData().getScore1()+" - "+ manager.getData().getScore2());
     label.setLayoutX((GameManager.WIDTH/2)-50);
@@ -84,20 +86,18 @@ public Scene getScene(GameManager manager) {
 
 
         ArrayList<String> inputs = new ArrayList<String>();
-        ArrayList<String> inputs2 = new ArrayList<String>();
+
         scene.setOnKeyPressed(e-> {
             String code = e.getCode().toString();
 
-            // only add once... prevent duplicates
-            if(code.equals("A")||code.equals("W")||code.equals("S")||code.equals("D")) {
                 if (!inputs.contains(code))
-                    inputs.add(code);
-            }
-            if(code.equals("LEFT")||code.equals("RIGHT")||code.equals("UP")||code.equals("DOWN"))
-            {
-                if (!inputs2.contains(code))
-                     inputs2.add(code);
-            }
+
+                {
+
+                 inputs.add(code);
+
+
+              }
 
 
         });
@@ -105,7 +105,7 @@ public Scene getScene(GameManager manager) {
         scene.setOnKeyReleased(e->{
             String code = e.getCode().toString();
             inputs.remove( code );
-            inputs2.remove(code);
+
 
         });
 
@@ -114,7 +114,7 @@ public Scene getScene(GameManager manager) {
         final Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
 
-        Duration duration = Duration.seconds(1.0/180.0); // Set duration for frame.
+        Duration duration = Duration.seconds(1.0/180.0f); // Set duration for frame.
 
 
 
@@ -124,7 +124,7 @@ public Scene getScene(GameManager manager) {
             public void handle(ActionEvent t) {
                 if(!manager.isPause()){
                 //Create time step. Set Iteration count 8 for velocity and 3 for positions
-                manager.getWorld().step(1.0f/180.f,8, 3);
+                manager.getWorld().step(1.0f/180.0f,8, 3);
 
                 //Move balls to the new position computed by JBox2D
                 Body body = (Body)manager.getBall().getUserData();
@@ -147,14 +147,15 @@ public Scene getScene(GameManager manager) {
 
 
 
-                Vec2 vel1 = new Vec2(0.0f,body2.getLinearVelocity().y);
-                body2.setLinearVelocity(vel1);
+               if(manager.getSelectedBackground()!=2) {
+                   Vec2 vel1 = new Vec2(0.0f, body2.getLinearVelocity().y);
+                   body2.setLinearVelocity(vel1);
 
-                Vec2 vel2 = new Vec2(0.0f,body3.getLinearVelocity().y);
-                body3.setLinearVelocity(vel2);
+                   Vec2 vel2 = new Vec2(0.0f, body3.getLinearVelocity().y);
+                   body3.setLinearVelocity(vel2);
+               }
 
-                    manager.getInManager().movementController2(inputs2,manager);
-                    manager.getInManager().movementController1(inputs,manager);
+                    manager.getInManager().movementController(inputs,manager);
 
 
                 label.setText(manager.getData().getScore1()+" - "+ manager.getData().getScore2());
@@ -176,6 +177,7 @@ public Scene getScene(GameManager manager) {
                  manager.resetScene();
                  goal = false;
                  goalLabel.setVisible(false);
+                 SoundManager.playGameSound();
                 }
 
 
@@ -239,12 +241,19 @@ public Scene getScene(GameManager manager) {
                       }
 
                     }
+                    long tEnd3 = System.currentTimeMillis();
+                    long tDelta3 = tEnd3 - manager.getGameStartTime();
+                    double elapsedSeconds3 = tDelta3 / 1000.0;
+                    timeLabel.setText(""+(int)elapsedSeconds3);
+
+                    timeLabel.setLayoutX((GameManager.WIDTH/2)+95);
+                    timeLabel.setLayoutY(0);
+                    timeLabel.setFont(Font.font("Cambria", 54));
+                    timeLabel.setPrefSize(160,40);
 
 
-            }
 
-
-            }
+                }}
         };
 
 
@@ -295,6 +304,7 @@ public Scene getScene(GameManager manager) {
 
         }
     });
+    root.getChildren().add(timeLabel);
     root.getChildren().add(winLabel);
     root.getChildren().add(winner);
     root.getChildren().add(goalLabel);

@@ -47,6 +47,15 @@ public class GameManager {
 
     //Ball radius in pixel
     private int BALL_RADIUS = 32 ;
+
+    public long getGameStartTime() {
+        return GameStartTime;
+    }
+
+    public void setGameStartTime(long gameStartTime) {
+        GameStartTime = gameStartTime;
+    }
+
     private long GameStartTime;
 
     private   World world ;
@@ -99,6 +108,7 @@ public class GameManager {
        {
             data.updateScore(data.getScore1()+0,data.getScore2()+1);
             goal = true;
+            SoundManager.goalVoice();
 
 
 
@@ -110,7 +120,8 @@ public class GameManager {
                (ball.getPosition().y < goalsY ))
        {
            data.updateScore(data.getScore1()+1,data.getScore2()+0);
-            goal = true;
+           goal = true;
+           SoundManager.goalVoice();
 
 
            return true;
@@ -154,7 +165,7 @@ public class GameManager {
         setHeadballer1( new Headballer(initialHeadballer1Pos.x,initialHeadballer1Pos.y, HEADSIZE,getHb1Url(),this));
         setHeadballer2( new Headballer(initialHeadballer2Pos.x,initialHeadballer2Pos.y,HEADSIZE,getHb2Url(),this));
         setBall(new Ball(initialBallPos.x,initialBallPos.y,getBALL_RADIUS(),getBallUrl(),this,getSelectedBall()));
-
+        if(getSelectedBackground()==2){((Body)(getBall().getUserData())).m_fixtureList.m_restitution = 4.0f;}
         //Add ground to the application, this is where balls will land
         physics.addGround(GameManager.WIDTH, 1.0f, this.world);
 
