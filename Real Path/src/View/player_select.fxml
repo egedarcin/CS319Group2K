@@ -114,7 +114,7 @@
             </font>
         </RadioButton>
         <Accordion layoutX="598.0" layoutY="117.0" />
-        <TitledPane layoutX="495.0" layoutY="117.0" opacity="0.89" prefHeight="435.0" prefWidth="290.0" text="                    Custom Options" textAlignment="CENTER">
+        <TitledPane expanded="false" layoutX="495.0" layoutY="117.0" opacity="0.89" prefHeight="435.0" prefWidth="290.0" text="                    Custom Options" textAlignment="CENTER">
             <content>
                 <AnchorPane prefHeight="340.0" prefWidth="288.0">
                     <children>
@@ -167,7 +167,7 @@
                                 <ToggleGroup fx:id="mapSelection" />
                             </toggleGroup>
                         </RadioButton>
-                        <ImageView fitHeight="72.0" fitWidth="128.0" layoutX="73.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="72.0" fitWidth="128.0" layoutX="39.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../Modal/backgrounds/stadium2.jpg" />
                             </image>
@@ -190,12 +190,18 @@
                   </ImageView>
                   <Button layoutX="224.0" layoutY="41.0" mnemonicParsing="false" onAction="#decreaseScoreLimit" opacity="0.0" prefHeight="25.0" prefWidth="29.0" />
                   <Button layoutX="197.0" layoutY="41.0" mnemonicParsing="false" onAction="#increaseScoreLimit" opacity="0.0" prefHeight="25.0" prefWidth="29.0" />
-                  <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="81.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="40.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Modal/backgrounds/sahabuz_saha.png" />
                      </image>
                   </ImageView>
                   <RadioButton fx:id="radioMapTwo" ellipsisString="2" layoutX="16.0" layoutY="352.0" mnemonicParsing="false" toggleGroup="$mapSelection" />
+                  <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="183.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Modal/backgrounds/uzay2.png" />
+                     </image>
+                  </ImageView>
+                  <RadioButton fx:id="radioMapThree" ellipsisString="3" layoutX="158.0" layoutY="352.0" mnemonicParsing="false" toggleGroup="$mapSelection" />
                     </children>
                 </AnchorPane>
             </content>

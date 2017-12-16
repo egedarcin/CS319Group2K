@@ -18,7 +18,7 @@ public class PlayerSelect_Controller {
     @FXML
     TextField scoreLimit, timeLimit;
     @FXML
-    RadioButton radioBallOne, radioBallTwo, radioMapOne, radioMapTwo;
+    RadioButton radioBallOne, radioBallTwo, radioMapOne, radioMapTwo,radioMapThree;
 
     private static final int maxLimit = 9; // max limit for time and score
 
@@ -69,6 +69,7 @@ public class PlayerSelect_Controller {
         radioBallTwo.setDisable(!radioBallTwo.isDisabled());
         radioMapOne.setDisable(!radioMapOne.isDisabled());
         radioMapTwo.setDisable(!radioMapTwo.isDisabled());
+        radioMapThree.setDisable(!radioMapThree.isDisabled());
     }
 
     // if user input exceeds the max limit
