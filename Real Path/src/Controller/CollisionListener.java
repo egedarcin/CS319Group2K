@@ -33,23 +33,14 @@
 
         {
 
-            if(contact.m_fixtureA.m_body.m_type.equals(BodyType.DYNAMIC)&&contact.m_fixtureB.m_body.m_type.equals(BodyType.DYNAMIC))
+           if(contact.m_fixtureA.m_body.m_type.equals(BodyType.DYNAMIC)&&contact.m_fixtureB.m_body.m_type.equals(BodyType.DYNAMIC))
              {
                 if(contact.m_fixtureA.m_density!=contact.m_fixtureB.m_density)
 
                 {
-                   // GamePhysics.setThereKick(true);
+                   GamePhysics.setThereKick(true);
 
 
-                    if(contact.m_fixtureA.m_density < contact.m_fixtureB.m_density)
-                    {
-
-                        Vec2 vec = new Vec2(k*(contact.m_fixtureA.m_body.getPosition().x - contact.m_fixtureB.m_body.getPosition().x)
-                                ,k*(contact.m_fixtureA.m_body.getPosition().y - contact.m_fixtureB.m_body.getPosition().y));
-
-                        Vec2 point = contact.m_fixtureA.m_body.getPosition();
-                        contact.m_fixtureA.m_body.applyLinearImpulse(vec,point);
-                    }
 
                     if(contact.m_fixtureB.m_density < contact.m_fixtureA.m_density)
                     {
@@ -58,10 +49,10 @@
                                 ,(contact.m_fixtureB.m_body.getPosition().y - contact.m_fixtureA.m_body.getPosition().y));
                         vec.normalize();
 
-                        vec = vec.mul(k);
-
+                        vec.set(k*vec.x,k*vec.y);
                         Vec2 point = contact.m_fixtureB.m_body.getWorldCenter();
-                        contact.m_fixtureB.m_body.applyLinearImpulse(vec,point);
+                        if(contact.m_fixtureB.m_body.m_type!=BodyType.STATIC){
+                        contact.m_fixtureB.m_body.applyLinearImpulse(vec,point);}
 
                     }
 

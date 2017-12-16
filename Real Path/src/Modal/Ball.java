@@ -13,11 +13,12 @@ import org.jbox2d.dynamics.FixtureDef;
 public class Ball extends Map implements Movable {
 
     private float radius;
-
-    public Ball(float posX, float posY, float radius, String url,GameManager manager)
+    private float ballKind;
+    public Ball(float posX, float posY, float radius, String url,GameManager manager,int ballKind)
     {
         super(posX,posY,url,manager);
         this.radius = radius;
+        this.ballKind = ballKind;
         create();
     }
 
@@ -40,7 +41,9 @@ public class Ball extends Map implements Movable {
         fd.shape = cs;
         fd.density = 1.0f;
         fd.friction = 0.3f;
-        fd.restitution = 1.0f;
+        if(ballKind == 1 ){ fd.restitution = 1.0f;}
+        else if(ballKind == 2){fd.restitution=7.0f; }
+
 
         /**
          * Virtual invisible JBox2D body of ball. Bodies have velocity and position.
@@ -49,6 +52,9 @@ public class Ball extends Map implements Movable {
         Body body = manager.getWorld().createBody(bd);
 
         body.createFixture(fd);
+
+        if(ballKind == 2){body.setLinearDamping(2); }
+
         this.setUserData(body);
 
     }

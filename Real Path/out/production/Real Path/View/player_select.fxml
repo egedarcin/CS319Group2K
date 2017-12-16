@@ -15,190 +15,196 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PlayerSelect_Controller">
-    <children>
-        <ImageView fitHeight="720.0" fitWidth="1597.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <image>
-                <Image url="@../Modal/background/main_menu_1.png" />
-            </image>
-        </ImageView>
-        <RadioButton ellipsisString="1" layoutX="580.0" layoutY="35.0" mnemonicParsing="false" onAction="#changeDisabled" prefHeight="38.0" prefWidth="121.0" selected="true" text="Normal Mode" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-            <toggleGroup>
-                <ToggleGroup fx:id="gameMode" />
-            </toggleGroup>
-        </RadioButton>
-        <Button layoutX="517.0" layoutY="568.0" mnemonicParsing="false" onAction="#Start" opacity="0.6" prefHeight="38.0" prefWidth="246.0" text="Start">
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-            <font>
-                <Font size="17.0" />
-            </font>
-        </Button>
-        <Button layoutX="590.0" layoutY="630.0" mnemonicParsing="false" onAction="#goBack" opacity="0.6" prefHeight="45.0" prefWidth="100.0" text="Go Back" AnchorPane.bottomAnchor="45.0">
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-        </Button>
-        <RadioButton ellipsisString="1" layoutX="162.0" layoutY="81.0" mnemonicParsing="false" selected="true">
-            <toggleGroup>
-                <ToggleGroup fx:id="playerOne" />
-            </toggleGroup>
-        </RadioButton>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../Modal/heads/1.png" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../Modal/heads/2.png" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="24.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../Modal/heads/3.png" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../Modal/heads/4.png" />
-            </image>
-        </ImageView>
-        <RadioButton ellipsisString="2" layoutX="162.0" layoutY="243.0" mnemonicParsing="false" toggleGroup="$playerOne" />
-        <RadioButton ellipsisString="3" layoutX="162.0" layoutY="415.0" mnemonicParsing="false" toggleGroup="$playerOne" />
-        <RadioButton ellipsisString="4" layoutX="162.0" layoutY="587.0" mnemonicParsing="false" toggleGroup="$playerOne" />
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1127.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../Modal/heads/8.png" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1129.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../Modal/heads/10.png" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1138.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../Modal/heads/12.png" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1128.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../Modal/heads/7.png" />
-            </image>
-        </ImageView>
-        <RadioButton ellipsisString="1" layoutX="1073.0" layoutY="81.0" mnemonicParsing="false">
-            <toggleGroup>
-                <ToggleGroup fx:id="playerTwo" />
-            </toggleGroup>
-        </RadioButton>
-        <RadioButton ellipsisString="4" layoutX="1073.0" layoutY="588.0" mnemonicParsing="false" toggleGroup="$playerTwo" />
-        <RadioButton ellipsisString="3" layoutX="1072.0" layoutY="415.0" mnemonicParsing="false" toggleGroup="$playerTwo" />
-        <RadioButton ellipsisString="2" layoutX="1072.0" layoutY="244.0" mnemonicParsing="false" selected="true" toggleGroup="$playerTwo" />
-        <Label layoutX="230.0" layoutY="10.0" text="Player One" textFill="WHITE">
-            <font>
-                <Font size="34.0" />
-            </font>
-        </Label>
-        <Label layoutX="850.0" layoutY="10.0" text="Player Two" textFill="WHITE">
-            <font>
-                <Font size="34.0" />
-            </font>
-        </Label>
-        <RadioButton ellipsisString="2" layoutX="580.0" layoutY="79.0" mnemonicParsing="false" onAction="#changeDisabled" prefHeight="38.0" prefWidth="142.0" text="Random Mode" textFill="WHITE" toggleGroup="$gameMode">
-            <font>
-                <Font name="System Bold" size="14.0" />
-            </font>
-        </RadioButton>
-        <Accordion layoutX="598.0" layoutY="117.0" />
-        <TitledPane layoutX="495.0" layoutY="117.0" opacity="0.89" prefHeight="435.0" prefWidth="290.0" text="                    Custom Options" textAlignment="CENTER">
-            <content>
-                <AnchorPane prefHeight="340.0" prefWidth="288.0">
-                    <children>
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1597.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../Modal/background/main_menu_1.png" />
+         </image>
+      </ImageView>
+      <RadioButton ellipsisString="1" layoutX="580.0" layoutY="35.0" mnemonicParsing="false" onAction="#changeDisabled" prefHeight="38.0" prefWidth="121.0" selected="true" text="Normal Mode" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="gameMode" />
+         </toggleGroup>
+      </RadioButton>
+      <Button layoutX="517.0" layoutY="568.0" mnemonicParsing="false" onAction="#Start" opacity="0.6" prefHeight="38.0" prefWidth="246.0" text="Start">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="590.0" layoutY="630.0" mnemonicParsing="false" onAction="#goBack" opacity="0.6" prefHeight="45.0" prefWidth="100.0" text="Go Back" AnchorPane.bottomAnchor="45.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <RadioButton ellipsisString="1" layoutX="162.0" layoutY="81.0" mnemonicParsing="false" selected="true">
+         <toggleGroup>
+            <ToggleGroup fx:id="playerOne" />
+         </toggleGroup>
+      </RadioButton>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Modal/heads/1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Modal/heads/2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="24.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Modal/heads/3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="520.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Modal/heads/6.png" />
+         </image>
+      </ImageView>
+      <RadioButton ellipsisString="2" layoutX="162.0" layoutY="243.0" mnemonicParsing="false" toggleGroup="$playerOne" />
+      <RadioButton ellipsisString="3" layoutX="162.0" layoutY="415.0" mnemonicParsing="false" toggleGroup="$playerOne" />
+      <RadioButton ellipsisString="4" layoutX="162.0" layoutY="587.0" mnemonicParsing="false" toggleGroup="$playerOne" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1127.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Modal/heads/8.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1129.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Modal/heads/10.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1138.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Modal/heads/12.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1128.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Modal/heads/11.png" />
+         </image>
+      </ImageView>
+      <RadioButton ellipsisString="1" layoutX="1073.0" layoutY="81.0" mnemonicParsing="false">
+         <toggleGroup>
+            <ToggleGroup fx:id="playerTwo" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton ellipsisString="4" layoutX="1073.0" layoutY="588.0" mnemonicParsing="false" toggleGroup="$playerTwo" />
+      <RadioButton ellipsisString="3" layoutX="1072.0" layoutY="415.0" mnemonicParsing="false" toggleGroup="$playerTwo" />
+      <RadioButton ellipsisString="2" layoutX="1072.0" layoutY="244.0" mnemonicParsing="false" selected="true" toggleGroup="$playerTwo" />
+      <Label layoutX="230.0" layoutY="10.0" text="Player One" textFill="WHITE">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label layoutX="850.0" layoutY="10.0" text="Player Two" textFill="WHITE">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <RadioButton ellipsisString="2" layoutX="580.0" layoutY="79.0" mnemonicParsing="false" onAction="#changeDisabled" prefHeight="38.0" prefWidth="142.0" text="Random Mode" textFill="WHITE" toggleGroup="$gameMode">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </RadioButton>
+      <Accordion layoutX="598.0" layoutY="117.0" />
+      <TitledPane expanded="false" layoutX="495.0" layoutY="117.0" opacity="0.89" prefHeight="435.0" prefWidth="290.0" text="                    Custom Options" textAlignment="CENTER">
+         <content>
+            <AnchorPane prefHeight="340.0" prefWidth="288.0">
+               <children>
                   <ImageView fitHeight="24.0" fitWidth="21.0" layoutX="228.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Modal/menu%20icons/arrow-down.png" />
+                        <Image url="@../Modal/menu icons/arrow-down.png" />
                      </image>
                   </ImageView>
                   <Button layoutX="224.0" layoutY="9.0" mnemonicParsing="false" onAction="#decreaseTimeLimit" opacity="0.0" prefHeight="25.0" prefWidth="29.0" />
-                        <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time Limit (m):">
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </Text>
-                        <TextField fx:id="timeLimit" editable="false" layoutX="122.0" layoutY="9.0" prefHeight="17.0" prefWidth="71.0" text="3" />
-                        <Text layoutX="14.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score Limit:">
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </Text>
-                        <TextField fx:id="scoreLimit" editable="false" layoutX="122.0" layoutY="41.0" prefHeight="17.0" prefWidth="71.0" text="3" />
-                        <Text layoutX="14.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ball">
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </Text>
-                        <Text layoutX="12.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Background">
-                            <font>
-                                <Font size="16.0" />
-                            </font>
-                        </Text>
-                        <ImageView fitHeight="71.0" fitWidth="71.0" layoutX="39.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../Modal/ball.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="71.0" fitWidth="71.0" layoutX="167.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../Modal/Beach-Ball-PNG-Picture.png" />
-                            </image>
-                        </ImageView>
-                        <RadioButton fx:id="radioBallOne" ellipsisString="1" layoutX="16.0" layoutY="141.0" mnemonicParsing="false" selected="true">
-                            <toggleGroup>
-                                <ToggleGroup fx:id="ballSelection" />
-                            </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="radioBallTwo" ellipsisString="2" layoutX="147.0" layoutY="141.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="0.0" toggleGroup="$ballSelection" />
-                        <RadioButton fx:id="radioMapOne" ellipsisString="1" layoutX="16.0" layoutY="263.0" mnemonicParsing="false" selected="true">
-                            <toggleGroup>
-                                <ToggleGroup fx:id="mapSelection" />
-                            </toggleGroup>
-                        </RadioButton>
-                        <ImageView fitHeight="72.0" fitWidth="128.0" layoutX="73.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../Modal/backgrounds/stadium2.jpg" />
-                            </image>
-                        </ImageView>
+                  <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time Limit (m):">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="timeLimit" editable="false" layoutX="122.0" layoutY="9.0" prefHeight="17.0" prefWidth="71.0" text="3" />
+                  <Text layoutX="14.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score Limit:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="scoreLimit" editable="false" layoutX="122.0" layoutY="41.0" prefHeight="17.0" prefWidth="71.0" text="3" />
+                  <Text layoutX="14.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ball">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="12.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Background">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="71.0" fitWidth="71.0" layoutX="39.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Modal/ball.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="71.0" fitWidth="71.0" layoutX="167.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Modal/Beach-Ball-PNG-Picture.png" />
+                     </image>
+                  </ImageView>
+                  <RadioButton fx:id="radioBallOne" ellipsisString="1" layoutX="16.0" layoutY="141.0" mnemonicParsing="false" selected="true">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="ballSelection" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="radioBallTwo" ellipsisString="2" layoutX="147.0" layoutY="141.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="0.0" toggleGroup="$ballSelection" />
+                  <RadioButton fx:id="radioMapOne" ellipsisString="1" layoutX="16.0" layoutY="263.0" mnemonicParsing="false" selected="true">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="mapSelection" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <ImageView fitHeight="72.0" fitWidth="128.0" layoutX="39.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Modal/backgrounds/stadium1.jpg" />
+                     </image>
+                  </ImageView>
                   <ImageView fitHeight="24.0" fitWidth="21.0" layoutX="201.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Modal/menu%20icons/arrow-up.png" />
+                        <Image url="@../Modal/menu icons/arrow-up.png" />
                      </image>
                   </ImageView>
                   <Button layoutX="197.0" layoutY="9.0" mnemonicParsing="false" onAction="#increaseTimeLimit" opacity="0.0" prefHeight="25.0" prefWidth="29.0" />
                   <ImageView fitHeight="24.0" fitWidth="21.0" layoutX="201.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Modal/menu%20icons/arrow-up.png" />
+                        <Image url="@../Modal/menu icons/arrow-up.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="24.0" fitWidth="21.0" layoutX="228.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Modal/menu%20icons/arrow-down.png" />
+                        <Image url="@../Modal/menu icons/arrow-down.png" />
                      </image>
                   </ImageView>
                   <Button layoutX="224.0" layoutY="41.0" mnemonicParsing="false" onAction="#decreaseScoreLimit" opacity="0.0" prefHeight="25.0" prefWidth="29.0" />
                   <Button layoutX="197.0" layoutY="41.0" mnemonicParsing="false" onAction="#increaseScoreLimit" opacity="0.0" prefHeight="25.0" prefWidth="29.0" />
-                  <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="81.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="40.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Modal/backgrounds/sahabuz_saha.png" />
                      </image>
                   </ImageView>
                   <RadioButton fx:id="radioMapTwo" ellipsisString="2" layoutX="16.0" layoutY="352.0" mnemonicParsing="false" toggleGroup="$mapSelection" />
-                    </children>
-                </AnchorPane>
-            </content>
-        </TitledPane>
-    </children>
+                  <ImageView fitHeight="83.0" fitWidth="111.0" layoutX="183.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Modal/backgrounds/uzay2.png" />
+                     </image>
+                  </ImageView>
+                  <RadioButton fx:id="radioMapThree" ellipsisString="3" layoutX="158.0" layoutY="352.0" mnemonicParsing="false" toggleGroup="$mapSelection" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+   </children>
 </AnchorPane>

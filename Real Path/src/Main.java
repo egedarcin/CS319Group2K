@@ -12,7 +12,6 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/View/main_menu.fxml"));
         primaryStage.setTitle("Head Ball");
         primaryStage.setScene(new Scene(root, 1280, 720));
-        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

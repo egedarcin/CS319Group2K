@@ -17,7 +17,6 @@ public class Main_Menu_Controller {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Parent root= FXMLLoader.load(getClass().getResource("player_select.fxml"));
         stage.setScene(new Scene(root, 1280, 720));
-        stage.setResizable(false);
         stage.show();
     }
 
@@ -26,7 +25,6 @@ public class Main_Menu_Controller {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Parent root= FXMLLoader.load(getClass().getResource("options.fxml"));
         stage.setScene(new Scene(root, 1280, 720));
-        stage.setResizable(false);
         stage.show();
     }
 
@@ -35,7 +33,6 @@ public class Main_Menu_Controller {
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Parent root= FXMLLoader.load(getClass().getResource("credits.fxml"));
         stage.setScene(new Scene(root, 1280, 720));
-        stage.setResizable(false);
         stage.show();
     }
 
@@ -44,7 +41,6 @@ public class Main_Menu_Controller {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("how_to_play.fxml"));
         stage.setScene(new Scene(root, 1280, 720));
-        stage.setResizable(false);
         stage.show();
     }
 

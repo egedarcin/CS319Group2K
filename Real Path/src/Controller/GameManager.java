@@ -1,9 +1,13 @@
 package Controller;
-
 import Modal.Ball;
 import Modal.GameData;
 import Modal.Goals;
 import Modal.Headballer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.util.Duration;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -11,7 +15,6 @@ import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
-
 public class GameManager {
 
     private GameData data = new GameData();
@@ -30,25 +33,34 @@ public class GameManager {
 
     private GamePhysics physics = new GamePhysics();
     private InputManager inManager = new InputManager();
-    public static final Vec2 initialHeadballer1Pos = new Vec2(100, 49);
-    public static final Vec2 initialHeadballer2Pos = new Vec2(1000, 49);
-    public static final Vec2 initialBallPos = new Vec2(600, 600);
+    public static final Vec2 initialHeadballer1Pos   = new Vec2(200,49);
+    public static final Vec2 initialHeadballer2Pos   = new Vec2(1000,49);
+    public static final Vec2 initialBallPos   = new Vec2(600,600);
 
 
     //Screen width and height
     public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
+    public static final int HEIGHT = 720 ;
 
     public static final int HEADSIZE = 48;
-
+    private boolean finished = false;
 
     //Ball radius in pixel
-    private int BALL_RADIUS = 32;
+    private int BALL_RADIUS = 32 ;
 
+    public long getGameStartTime() {
+        return GameStartTime;
+    }
 
-    private World world;
-    private Headballer headballer1;
-    private Headballer headballer2;
+    public void setGameStartTime(long gameStartTime) {
+        GameStartTime = gameStartTime;
+    }
+
+    private long GameStartTime;
+
+    private   World world ;
+    private  Headballer headballer1;
+    private  Headballer headballer2;
     private Ball ball;
 
     public final float goalsHeights = 5;
@@ -59,101 +71,174 @@ public class GameManager {
     private final float goal2X = 1210;
 
     private int gameMode;
-    private float gravity = -300.0f;
+    private  float gravity = -300.0f;
     private float groundFriction;
     private int selectedChar1;
     private int selectedChar2;
-    private int selectedBall;
+    private  int selectedBall;
     private int selectedBackground;
     private String hb1Url;
     private String hb2Url;
     private String ballUrl;
     private String backUrl;
+    private boolean goal = false;
 
-    public boolean goalScored() {
-        Body ball = (Body) (this.getBall().getUserData());
+    public boolean isPause() {
+        return pause;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
+    }
+
+    private boolean pause = false;
 
 
-        if ((ball.getPosition().x < goal1Width) &&
-                (ball.getPosition().y < goalsY)) {
-            data.updateScore(data.getScore1(), data.getScore2() + 1);
-            resetScene();
+
+
+
+
+    public boolean goalScored()
+    {
+       Body ball =  (Body)(this.getBall().getUserData());
+
+        if(!goal){
+       if((ball.getPosition().x< goal1Width )&&
+               (ball.getPosition().y< goalsY ))
+       {
+            data.updateScore(data.getScore1()+0,data.getScore2()+1);
+            goal = true;
+            SoundManager.goalVoice();
+
+
+
+
             return true;
-        } else if ((ball.getPosition().x > goal2X) &&
-                (ball.getPosition().y < goalsY)) {
-            data.updateScore(data.getScore1() + 1, data.getScore2());
+       }
 
-            resetScene();
-            return true;
-        }
-        return false;
+       else if((ball.getPosition().x > goal2X - 60 )&&
+               (ball.getPosition().y < goalsY ))
+       {
+           data.updateScore(data.getScore1()+1,data.getScore2()+0);
+           goal = true;
+           SoundManager.goalVoice();
+
+
+           return true;
+       }
+       return false;
+    }
+    return false;
     }
 
 
-    public void resetScene() {
-        Body hb1 = (Body) this.getHeadballer1().getUserData();
-        Body hb2 = (Body) this.getHeadballer2().getUserData();
-        Body ball = (Body) this.getBall().getUserData();
+    public void resetScene()
+    {
 
 
-        ball.synchronizeTransform();
-        hb1.synchronizeTransform();
-        hb2.synchronizeTransform();
+        goal = false;
 
-        hb2.getPosition().set(initialHeadballer2Pos);
-        ball.getPosition().set(initialBallPos);
+        Body hb1 = (Body)this.getHeadballer1().getUserData();
+        Body hb2 = (Body)this.getHeadballer2().getUserData();
+        Body ball = (Body)this.getBall().getUserData();
 
 
-        hb1.setType(BodyType.DYNAMIC);
-        hb2.setType(BodyType.DYNAMIC);
-        ball.setType(BodyType.DYNAMIC);
+        Vec2 vel = new Vec2(0,0);
 
-    }
+        hb1.setTransform(initialHeadballer1Pos,0);
+        hb2.setTransform(initialHeadballer2Pos,0);
+        ball.setTransform(initialBallPos,0);
 
-    public void newGame() {
-        this.setWorld(new World(new Vec2(0.0f, this.getGravity())));
+        hb1.setLinearVelocity(vel);
+        hb2.setLinearVelocity(vel);
+        ball.setLinearVelocity(vel);}
+
+
+
+    public void newGame()
+    {
+        if(selectedBackground == 3){setGravity(0);}
+        if(selectedBackground!=3){setGravity(-300.0f);}
+        this.setWorld( new World(new Vec2(0.0f, this.getGravity())));
         CollisionListener cl = new CollisionListener();
         this.world.setContactListener(cl);
-        headballer1 = new Headballer(initialHeadballer1Pos.x, initialHeadballer1Pos.y, HEADSIZE, "1.png"/*getHb1Url()*/, this);
-        headballer2 = new Headballer(initialHeadballer2Pos.x, initialHeadballer2Pos.y, HEADSIZE, "11.png"/*getHb2Url()*/, this);
-        ball = new Ball(initialBallPos.x, initialBallPos.y, getBALL_RADIUS(), "ball.png"/*getBallUrl()*/, this);
-
+        setHeadballer1( new Headballer(initialHeadballer1Pos.x,initialHeadballer1Pos.y, HEADSIZE,getHb1Url(),this));
+        setHeadballer2( new Headballer(initialHeadballer2Pos.x,initialHeadballer2Pos.y,HEADSIZE,getHb2Url(),this));
+        setBall(new Ball(initialBallPos.x,initialBallPos.y,getBALL_RADIUS(),getBallUrl(),this,getSelectedBall()));
+        if(getSelectedBackground()==2){((Body)(getBall().getUserData())).m_fixtureList.m_restitution = 4.0f;}
         //Add ground to the application, this is where balls will land
         physics.addGround(GameManager.WIDTH, 1.0f, this.world);
 
         //Add left and right walls so balls will not move outside the viewing area.
-        physics.addWall(0, GameManager.HEIGHT, 1f, GameManager.HEIGHT, this.world); //Left wall
-        physics.addWall(GameManager.WIDTH, GameManager.HEIGHT, 1f, GameManager.HEIGHT, this.world); //Right wall
-        physics.addWall(0, GameManager.HEIGHT, GameManager.WIDTH, 1f, this.world); // Top wall
-        physics.addGoals(this.world, goalsHeights,
-                goal1Width, goal2Width, goalsY, goal1X, goal2X
-        );
+        physics.addWall(0,GameManager.HEIGHT,1f,GameManager.HEIGHT,this.world); //Left wall
+        physics.addWall(GameManager.WIDTH,GameManager.HEIGHT,1f,GameManager.HEIGHT,this.world); //Right wall
+        physics.addWall(0,GameManager.HEIGHT, GameManager.WIDTH,1f,this.world); // Top wall
+        physics.addGoals(this.world,goalsHeights ,
+         goal1Width ,goal2Width , goalsY , goal1X  ,goal2X
+    );
+        GameStartTime = System.currentTimeMillis();
+
     }
 
-    public boolean isFinished() {
-        if (data.getScore1() == data.getScoreLimit()) {
+   public int isFinished()
+   {
+       long tEnd2 = System.currentTimeMillis();
+       long tDelta2 = tEnd2 - GameStartTime;
+       double elapsedSeconds2 = tDelta2 / 1000.0;
+
+       if(!finished){ if(data.getScore1()==data.getScoreLimit())
+        {
             //player1 won
-            endGame();
-            return true;
-        } else if (data.getScore2() == data.getScoreLimit()) {
-            //player2 won
-            endGame();
-            return true;
-        } else if (data.getCurrentTime() >= data.getTimeLimit()) {
-            if (data.getScore1() > data.getScore2()) {/*player1 won*/ }
-            if (data.getScore1() < data.getScore2()) {/*player2 won*/ }
-            if (data.getScore1() == data.getScore2()) {/*noone won*/ }
-            endGame();
-            return true;
+            finished = true;
+            return 1;
         }
-        return false;
-    }
 
-    public void endGame() {
-    }
+        else if (data.getScore2()==data.getScoreLimit())
+        {
+            //player2 won
+            finished = true;
+            return 2;
+        }
 
-    public void checkPowerups() {
-    }
+       else if(elapsedSeconds2>=data.getTimeLimit())
+        {
+            finished = true;
+            if(data.getScore1()>data.getScore2()){return 1 ; }
+            if(data.getScore1()<data.getScore2()){return 2 ; }
+            if(data.getScore1()==data.getScore2()){return 3; }
+            return 0;
+        }
+    return 0;}
+    else {return 0 ;}
+   }
+
+   public void endGame()
+   {
+       setPause(true);
+   }
+
+   public void checkPowerups(){}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public int getGameMode() {
@@ -186,7 +271,12 @@ public class GameManager {
 
     public void setSelectedChar1(int selectedChar1) {
         this.selectedChar1 = selectedChar1;
-    }
+        if(selectedChar1==1){setHb1Url("11.png");}
+        else if(selectedChar1==2){setHb1Url("22.png");}
+        else if(selectedChar1==3){setHb1Url("33.png");}
+        else if(selectedChar1==4){setHb1Url("44.png");}
+        else{setHb1Url("44.png");}
+   }
 
     public int getSelectedChar2() {
         return selectedChar2;
@@ -194,6 +284,11 @@ public class GameManager {
 
     public void setSelectedChar2(int selectedChar2) {
         this.selectedChar2 = selectedChar2;
+        if(selectedChar2==1){setHb2Url("1.png");}
+        else if(selectedChar2==2){setHb2Url("2.png");}
+        else if(selectedChar2==3){setHb2Url("3.png");}
+        else if(selectedChar2==4){setHb2Url("4.png");}
+        else{setHb2Url("4.png");}
     }
 
     public int getSelectedBall() {
@@ -202,6 +297,9 @@ public class GameManager {
 
     public void setSelectedBall(int selectedBall) {
         this.selectedBall = selectedBall;
+        if(selectedBall==1){setBallUrl("ball.png");}
+        else if(selectedBall==2){setBallUrl("ball2.png");}
+
     }
 
     public int getSelectedBackground() {
@@ -210,6 +308,9 @@ public class GameManager {
 
     public void setSelectedBackground(int selectedBackground) {
         this.selectedBackground = selectedBackground;
+        if(selectedBackground==1){setBackUrl("/Modal/backgrounds/stadium1.jpg");}
+        else if(selectedBackground==2){setBackUrl("/Modal/backgrounds/sahabuz_saha.png");}
+        else if(selectedBackground==3){setBackUrl("/Modal/backgrounds/uzay2.png");}
     }
 
     public World getWorld() {
@@ -245,39 +346,39 @@ public class GameManager {
     }
 
 
+
     public static float toPixelPosX(float posX) {
-        float x = WIDTH * posX / 1280f;
+        float x = WIDTH*posX / 1280f;
         return x;
     }
 
     //Convert a JavaFX pixel x coordinate to a JBox2D x coordinate
     public static float toPosX(float posX) {
-        float x = (posX * 100.0f * 1.0f) / WIDTH;
+        float x =   (posX*100.0f*1.0f)/WIDTH;
         return x;
     }
 
     //Convert a JBox2D y coordinate to a JavaFX pixel y coordinate
     public static float toPixelPosY(float posY) {
-        float y = HEIGHT - (1.0f * HEIGHT) * posY / 720f;
+        float y = HEIGHT - (1.0f*HEIGHT) * posY / 720f;
         return y;
     }
 
     //Convert a JavaFX pixel y coordinate to a JBox2D y coordinate
     public static float toPosY(float posY) {
-        float y = 100.0f - ((posY * 100 * 1.0f) / HEIGHT);
+        float y = 100.0f - ((posY * 100*1.0f) /HEIGHT) ;
         return y;
     }
 
     //Convert a JBox2D width to pixel width
     public static float toPixelWidth(float width) {
-        return WIDTH * width / 100.0f;
+        return WIDTH*width / 100.0f;
     }
 
     //Convert a JBox2D height to pixel height
     public static float toPixelHeight(float height) {
-        return HEIGHT * height / 100.0f;
+        return HEIGHT*height/100.0f;
     }
-
     public String getHb1Url() {
         return hb1Url;
     }
@@ -309,7 +410,6 @@ public class GameManager {
     public void setBackUrl(String backUrl) {
         this.backUrl = backUrl;
     }
-
     public int getBALL_RADIUS() {
         return BALL_RADIUS;
     }

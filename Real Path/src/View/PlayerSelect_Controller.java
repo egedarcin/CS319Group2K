@@ -18,7 +18,7 @@ public class PlayerSelect_Controller {
     @FXML
     TextField scoreLimit, timeLimit;
     @FXML
-    RadioButton radioBallOne, radioBallTwo, radioMapOne, radioMapTwo,radioMapThree;
+    RadioButton radioBallOne, radioBallTwo, radioMapOne, radioMapTwo;
 
     private static final int maxLimit = 9; // max limit for time and score
 
@@ -41,8 +41,7 @@ public class PlayerSelect_Controller {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         GameManager manager = new GameManager();
-        manager.newGame();
-        Scene scene = (new GameScene()).getScene(manager);
+
         stage.setTitle("Head Ball");
 
         // passing user's selections to game manager
@@ -51,10 +50,12 @@ public class PlayerSelect_Controller {
         manager.setSelectedChar1(Integer.parseInt(playerOneToggle.getEllipsisString()));
         manager.setSelectedChar2(Integer.parseInt(playerTwoToggle.getEllipsisString()));
         manager.setSelectedBackground(Integer.parseInt(mapToggle.getEllipsisString()));
+        manager.getData().setScoreLimit(Integer.parseInt(scoreLimit.getText()));
+        manager.getData().setTimeLimit((Integer.parseInt(timeLimit.getText()))*60);
 
-//        manager.setSelectedTimeLimit(Integer.parseInt(timeLimit.getText()));
-//        manager.setSelectedScoreLimit(Integer.parseInt(scoreLimit.getText()));
 
+        manager.newGame();
+        Scene scene = (new GameScene()).getScene(manager);
         stage.setFullScreen(false);
         stage.setResizable(false);
         stage.setScene(scene);
@@ -69,7 +70,6 @@ public class PlayerSelect_Controller {
         radioBallTwo.setDisable(!radioBallTwo.isDisabled());
         radioMapOne.setDisable(!radioMapOne.isDisabled());
         radioMapTwo.setDisable(!radioMapTwo.isDisabled());
-        radioMapThree.setDisable(!radioMapThree.isDisabled());
     }
 
     // if user input exceeds the max limit
