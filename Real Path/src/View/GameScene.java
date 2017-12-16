@@ -241,7 +241,10 @@ public Scene getScene(GameManager manager) {
                     }
 
 
-            }}
+            }
+
+
+            }
         };
 
 
