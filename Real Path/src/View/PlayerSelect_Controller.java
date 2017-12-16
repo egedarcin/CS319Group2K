@@ -17,6 +17,9 @@ public class PlayerSelect_Controller {
     ToggleGroup playerOne, playerTwo, gameMode, ballSelection, mapSelection;
     @FXML
     TextField scoreLimit, timeLimit;
+    @FXML
+    RadioButton radioBallOne, radioBallTwo, radioMapOne, radioMapTwo;
+
     private static final int maxLimit = 9; // max limit for time and score
 
     @FXML
@@ -56,6 +59,16 @@ public class PlayerSelect_Controller {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+    }
+
+    // disables map and ball select if random mode selected
+    // or enable if normal mode selecsted
+    @FXML
+    private void changeDisabled(ActionEvent event) throws IOException {
+        radioBallOne.setDisable(!radioBallOne.isDisabled());
+        radioBallTwo.setDisable(!radioBallTwo.isDisabled());
+        radioMapOne.setDisable(!radioMapOne.isDisabled());
+        radioMapTwo.setDisable(!radioMapTwo.isDisabled());
     }
 
     // if user input exceeds the max limit
