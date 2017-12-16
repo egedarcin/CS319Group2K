@@ -11,7 +11,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -20,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -27,6 +30,7 @@ import javafx.util.Duration;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameScene  {
@@ -50,7 +54,7 @@ public Scene getScene(GameManager manager) {
     Scene scene = new Scene(root, GameManager.WIDTH, GameManager.HEIGHT);
 
 
-
+    VBox pauseMenu = new VBox();
     Label label = new Label();
     label.setText(manager.getData().getScore1()+" - "+ manager.getData().getScore2());
     label.setLayoutX((GameManager.WIDTH/2)-50);
@@ -117,7 +121,47 @@ public Scene getScene(GameManager manager) {
         Duration duration = Duration.seconds(1.0/180.0); // Set duration for frame.
 
 
+    final Button continueButton = new Button("Continue");
+    continueButton.setOnAction(new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent event) {
+            manager.setPause(false);
+            pauseMenu.setOpacity(0);
+            pauseMenu.setDisable(true);
+        }
+    });
 
+    // pause menu
+    final Button exitButton = new Button("Exit");
+    exitButton.setOnAction(new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent event) {
+            try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Parent root = FXMLLoader.load(getClass().getResource("main_menu.fxml"));
+                stage.setScene(new Scene(root, 1280, 720));
+                stage.show();
+            } catch (IOException e){
+
+            }
+        }
+    });
+    pauseMenu.getChildren().addAll(continueButton, exitButton);
+    pauseMenu.setLayoutX(640);
+    pauseMenu.setLayoutY(360);
+    pauseMenu.setOpacity(0);
+    pauseMenu.setDisable(true);
+
+
+    final Button pauseButton = new Button("Pause");
+    pauseButton.setLayoutX(15);
+    pauseButton.setLayoutY(15);
+    pauseButton.setOnAction(new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent event) {
+            manager.setPause(true);
+            pauseMenu.setOpacity(100);
+            pauseMenu.setDisable(false);
+        }
+    });
+    // end of pause menu
         //Create an ActionEvent, on trigger it executes a world time step and moves the balls to new position
 
         EventHandler<ActionEvent> ae = new EventHandler<ActionEvent>() {
@@ -237,7 +281,10 @@ public Scene getScene(GameManager manager) {
                         goalLabel.setVisible(false);
                         isFinished = true;
                       }
-
+                        pauseMenu.setOpacity(100);
+                        pauseMenu.setDisable(false);
+                        continueButton.setOpacity(0);
+                        continueButton.setDisable(true);
                     }
 
 
@@ -295,6 +342,8 @@ public Scene getScene(GameManager manager) {
 
         }
     });
+
+
     root.getChildren().add(winLabel);
     root.getChildren().add(winner);
     root.getChildren().add(goalLabel);
@@ -306,6 +355,15 @@ public Scene getScene(GameManager manager) {
     root.getChildren().add(btn2);
 
 
+
+
+
+
+
+
+
+    root.getChildren().add(pauseButton);
+    root.getChildren().add(pauseMenu);
    return scene;
 }
 }

@@ -10,5 +10,4 @@ public class SoundManager {
 
     Media sound = new Media(new File(musicFile1).toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(sound);
-    mediaPlayer.play();
 }
