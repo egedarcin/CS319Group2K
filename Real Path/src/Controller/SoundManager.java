@@ -4,6 +4,7 @@ import javafx.scene.media.AudioClip;
 
 public class SoundManager {
 
+<<<<<<< HEAD
     public static void kickSound(){
         AudioClip kickSound = new AudioClip("/ballKick.mp3");
         kickSound.play();
@@ -16,5 +17,6 @@ public class SoundManager {
         AudioClip goalSound = new AudioClip("/cheering.wav");
         goalSound.play();
     }
+
 }
 
