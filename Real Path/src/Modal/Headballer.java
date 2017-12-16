@@ -11,10 +11,12 @@ import org.jbox2d.dynamics.FixtureDef;
 public class Headballer extends Map implements Movable {
 
     private float radius;
-    public Headballer(float posX, float posY, float radius, String url)
+
+    public Headballer(float posX, float posY, float radius, String url,GameManager manager)
     {
-        super(posX,posY,url);
+        super(posX,posY,url,manager);
         this.radius = radius;
+
         create();
     }
 
@@ -22,8 +24,8 @@ public class Headballer extends Map implements Movable {
     @Override
     public void create()
     {
-        this.setLayoutX(GameManager.toPixelPosX(getPosX()));
-        this.setLayoutY(GameManager.toPixelPosY(getPosY()));
+        this.setLayoutX(GameManager.toPixelPosX(getPosX())-manager.HEADSIZE);
+        this.setLayoutY(GameManager.toPixelPosY(getPosY())-manager.HEADSIZE);
 
         //Create an JBox2D body defination for ball.
         BodyDef bd = new BodyDef();
@@ -37,14 +39,16 @@ public class Headballer extends Map implements Movable {
         FixtureDef fd = new FixtureDef();
         fd.shape = cs;
         fd.density = 15.0f;
-        fd.friction = 0.3f;
+        fd.friction = 1f;
         fd.restitution = 0.0f;
 
         /**
          * Virtual invisible JBox2D body of ball. Bodies have velocity and position.
          * Forces, torques, and impulses can be applied to these bodies.
          */
-        Body body = GameManager.world.createBody(bd);
+        Body body = manager.getWorld().createBody(bd);
+
+
         body.createFixture(fd);
         this.setUserData(body);
 

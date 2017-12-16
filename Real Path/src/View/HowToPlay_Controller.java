@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HowToPlay_Controller {
+public class    HowToPlay_Controller {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {

@@ -1,5 +1,6 @@
 package Modal;
 
+import Controller.GameManager;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,10 +37,13 @@ public abstract class Map extends Parent {
     private float posY;
     private String ImageUrl;
 
-    public Map(float posX, float posY, String ImageUrl) {
+    GameManager manager;
+
+    public Map(float posX, float posY, String ImageUrl, GameManager manager) {
         this.posX = posX;
         this.posY = posY;
         this.ImageUrl = ImageUrl;
+        this.manager = manager;
         setImage(ImageUrl);
     }
 
@@ -48,7 +52,7 @@ public abstract class Map extends Parent {
     public void setImage(String url)
     {
         ImageView iv = new ImageView();
-        iv.setSmooth(true);
+
         Image image = new Image(Ball.class.getResourceAsStream(url));
         iv.setImage(image);
 
