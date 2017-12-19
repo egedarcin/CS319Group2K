@@ -1,10 +1,10 @@
 package Modal;
 
 public class GameData {
-    private int score1;
-    private int score2;
+    private int score1 = 0;
+    private int score2 = 0;
     private int scoreLimit;
-    private int TimeLimit;
+    private int TimeLimit ;
 
 
 
@@ -13,7 +13,7 @@ public class GameData {
     public void startTime(){}
     public void PauseTime(){}
 
-    public void updateScore(int score1, int score2){}
+    public void updateScore(int score1, int score2){this.score1 = score1; this.score2= score2;}
     public void resetScore(){}
     public void resetTime(){}
 

@@ -24,8 +24,8 @@ public class Headballer extends Map implements Movable {
     @Override
     public void create()
     {
-        this.setLayoutX(GameManager.toPixelPosX(getPosX()));
-        this.setLayoutY(GameManager.toPixelPosY(getPosY()));
+        this.setLayoutX(GameManager.toPixelPosX(getPosX())-manager.HEADSIZE);
+        this.setLayoutY(GameManager.toPixelPosY(getPosY())-manager.HEADSIZE);
 
         //Create an JBox2D body defination for ball.
         BodyDef bd = new BodyDef();
@@ -48,7 +48,7 @@ public class Headballer extends Map implements Movable {
          */
         Body body = manager.getWorld().createBody(bd);
 
-        System.out.println(getPosX() + " " + getPosY());
+
         body.createFixture(fd);
         this.setUserData(body);
 
