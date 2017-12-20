@@ -68,10 +68,10 @@ public class GameManager {
 
     public final float goalsHeights = 5;
     private final float goal1Width = 130;
-    private final float goal2Width = 70;
+    private final float goal2Width = 65;
     private final float goalsY = 300;
     private final float goal1X = 0;
-    private final float goal2X = 1210;
+    private final float goal2X = 1215;
 
     private int gameMode;
     private  float gravity = -300.0f;
@@ -191,9 +191,6 @@ public class GameManager {
 
     }
 
-
-
-
     public void newGame()
     {
 
@@ -283,6 +280,45 @@ public class GameManager {
 
 
 
+    public boolean isTouch(int hb)
+    {
+        if(hb==1)
+        {
+            Body hb1 = (Body)getHeadballer1().getUserData();
+            Body hb2 = (Body)getHeadballer2().getUserData();
+            Body ball = (Body)getBall().getUserData();
+            boolean touchGoal = (hb1.getWorldCenter().x< 178.0f && hb1.getWorldCenter().y>300.0&&hb1.getWorldCenter().y<353.01)
+            || (hb1.getWorldCenter().x> 1102&& hb1.getWorldCenter().y>300.0 && hb1.getWorldCenter().y<353.01);
+            boolean touchBall =((hb1.getWorldCenter().sub(ball.getWorldCenter())).length() < 78.4);
+            boolean touchGround = (hb1.getWorldCenter().y <49.01);
+            boolean touchHeadBaller =((hb1.getWorldCenter().sub(hb2.getWorldCenter())).length() < 96);
+            if(touchGoal){return true;}
+            else if(touchGround){return true;}
+           else if(touchBall){
+                if(ball.getWorldCenter().y<hb1.getWorldCenter().y){return true;}}
+            else if(touchHeadBaller){if(hb2.getWorldCenter().y<hb1.getWorldCenter().y){return  true;}}
+            else {return false;}
+        }
+
+        else
+        {
+            Body hb1 = (Body)getHeadballer2().getUserData();
+            Body hb2 = (Body)getHeadballer1().getUserData();
+             Body ball = (Body)getBall().getUserData();
+            boolean touchGoal = (hb1.getWorldCenter().x< 178.0f && hb1.getWorldCenter().y>300.0&&hb1.getWorldCenter().y<353.01)
+            || (hb1.getWorldCenter().x> 1102 && hb1.getWorldCenter().y>300.0 && hb1.getWorldCenter().y<353.01);
+            boolean touchBall =((hb1.getWorldCenter().sub(ball.getWorldCenter())).length() < 78.4);
+            boolean touchGround = (hb1.getWorldCenter().y <49.01);
+            boolean touchHeadBaller = ((hb1.getWorldCenter().sub(hb2.getWorldCenter())).length() < 96);
+            if(touchGoal){return true;}
+            else if(touchGround){return true;}
+            else if(touchBall){if(ball.getWorldCenter().y<hb1.getWorldCenter().y){return true;}}
+            else if(touchHeadBaller){if(hb2.getWorldCenter().y<hb1.getWorldCenter().y){return  true;}}
+            else {return false;}
+
+        }
+        return false;
+    }
 
     public int getGameMode() {
         return gameMode;

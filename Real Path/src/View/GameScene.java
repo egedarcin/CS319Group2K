@@ -209,7 +209,6 @@ public Scene getScene(GameManager manager) {
                 manager.getHeadballer2().setLayoutY(ypos3-(manager.HEADSIZE));
 
 
-
                if(manager.getSelectedBackground()!=2) {
                    Vec2 vel1 = new Vec2(0.0f, body2.getLinearVelocity().y);
                    body2.setLinearVelocity(vel1);
