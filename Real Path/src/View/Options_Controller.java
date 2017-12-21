@@ -16,6 +16,8 @@ public class Options_Controller {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("main_menu.fxml"));
         stage.setScene(new Scene(root, 1280, 720));
+        stage.setFullScreen(false);
+        stage.setResizable(false);
         stage.show();
     }
 
