@@ -243,7 +243,8 @@ public class GameScene {
                         StartTime = System.currentTimeMillis();
                         goal = true;
                         goalLabel.setVisible(true);
-                        soundManager.playCheering();
+                        if (!manager.isMuted())
+                            soundManager.playCheering();
 
 
                     }

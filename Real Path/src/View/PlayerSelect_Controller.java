@@ -19,6 +19,7 @@ public class PlayerSelect_Controller {
     TextField scoreLimit, timeLimit;
     @FXML
     RadioButton radioBallOne, radioBallTwo, radioMapOne, radioMapTwo;
+    @FXML CheckBox sound;
 
     private static final int maxLimit = 9; // max limit for time and score
 
@@ -56,6 +57,7 @@ public class PlayerSelect_Controller {
         manager.getData().setTimeLimit((Integer.parseInt(timeLimit.getText()))*60);
         manager.setSelectedChar1(Integer.parseInt(playerOneToggle.getEllipsisString()));
         manager.setSelectedChar2(Integer.parseInt(playerTwoToggle.getEllipsisString()));
+        manager.setMuted(!sound.isSelected());
 
         manager.newGame();
         Scene scene = (new GameScene()).getScene(manager);

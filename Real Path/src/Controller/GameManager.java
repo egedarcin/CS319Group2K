@@ -42,6 +42,15 @@ public class GameManager {
     public static final Vec2 initialHeadballer2Pos = new Vec2(1000, 49);
     public static final Vec2 initialBallPos = new Vec2(600, 600);
 
+    private boolean isMuted = false;
+
+    public boolean isMuted() {
+        return isMuted;
+    }
+
+    public void setMuted(boolean mute) {
+        isMuted = mute;
+    }
 
     //Screen width and height
     public static final int WIDTH = 1280;
@@ -201,7 +210,8 @@ public class GameManager {
                 goal1Width, goal2Width, goalsY, goal1X, goal2X
         );
         GameStartTime = System.currentTimeMillis();
-        soundManager.playGameSound();
+        if (!isMuted)
+            soundManager.playGameSound();
     }
 
     public int isFinished() {
