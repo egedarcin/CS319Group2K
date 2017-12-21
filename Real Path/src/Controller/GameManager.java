@@ -214,6 +214,9 @@ public class GameManager {
             soundManager.playGameSound();
     }
 
+    public void stopSound(){
+        soundManager.stop();
+    }
     public int isFinished() {
         long tEnd2 = System.currentTimeMillis();
         long tDelta2 = tEnd2 - GameStartTime;

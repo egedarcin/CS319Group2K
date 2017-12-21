@@ -9,21 +9,24 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 
 public class SoundManager {
+    private Clip clip;
     public void playSound(String url) {
         try{
         AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream(url));
-        Clip clip = AudioSystem.getClip();
+        clip = AudioSystem.getClip();
         clip.open(stream);
         clip.start();
     } catch (Exception e){
             e.printStackTrace();
         }
     }
+    public void stop(){
+        clip.stop();
+    }
 
     public void playKick(){
         playSound("ballKick.wav");
     }
-
     public void playCheering(){
         playSound("cheering1.wav");
     }

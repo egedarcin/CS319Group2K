@@ -77,8 +77,13 @@ public class GameScene {
                     stage.setScene(new Scene(root, 1280, 720));
                     stage.show();
                 } catch (IOException e) {
-
                 }
+                try {
+                    soundManager.stop();
+                } catch (Exception e){}
+                try {
+                    manager.stopSound();
+                } catch (Exception e){}
             }
         });
 
