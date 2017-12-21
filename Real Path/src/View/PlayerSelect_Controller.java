@@ -46,13 +46,16 @@ public class PlayerSelect_Controller {
 
         // passing user's selections to game manager
         manager.setGameMode(Integer.parseInt(gameModeToggle.getEllipsisString()));
-        manager.setSelectedBall(Integer.parseInt(ballToggle.getEllipsisString()));
-        manager.setSelectedChar1(Integer.parseInt(playerOneToggle.getEllipsisString()));
-        manager.setSelectedChar2(Integer.parseInt(playerTwoToggle.getEllipsisString()));
-        manager.setSelectedBackground(Integer.parseInt(mapToggle.getEllipsisString()));
+        if(Integer.parseInt(gameModeToggle.getEllipsisString())==1)
+        {
+            manager.setSelectedBall(Integer.parseInt(ballToggle.getEllipsisString()));
+            manager.setSelectedBackground(Integer.parseInt(mapToggle.getEllipsisString()));
+        }
+
         manager.getData().setScoreLimit(Integer.parseInt(scoreLimit.getText()));
         manager.getData().setTimeLimit((Integer.parseInt(timeLimit.getText()))*60);
-
+        manager.setSelectedChar1(Integer.parseInt(playerOneToggle.getEllipsisString()));
+        manager.setSelectedChar2(Integer.parseInt(playerTwoToggle.getEllipsisString()));
 
         manager.newGame();
         Scene scene = (new GameScene()).getScene(manager);

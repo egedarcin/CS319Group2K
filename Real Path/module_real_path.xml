@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_real_path" default="compile.module.real_path">
+  <dirname property="module.real_path.basedir" file="${ant.file.module_real_path}"/>
+  
+  <property name="module.jdk.home.real_path" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.real_path" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.real_path" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.real_path" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="real_path.output.dir" value="${module.real_path.basedir}/out/production/Real Path"/>
+  <property name="real_path.testoutput.dir" value="${module.real_path.basedir}/out/test/Real Path"/>
+  
+  <path id="real_path.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="real_path.module.production.classpath">
+    <path refid="${module.jdk.classpath.real_path}"/>
+    <path refid="library.jbox2d-library-2.2.1.1.classpath"/>
+  </path>
+  
+  <path id="real_path.runtime.production.module.classpath">
+    <pathelement location="${real_path.output.dir}"/>
+    <path refid="library.jbox2d-library-2.2.1.1.classpath"/>
+  </path>
+  
+  <path id="real_path.module.classpath">
+    <path refid="${module.jdk.classpath.real_path}"/>
+    <pathelement location="${real_path.output.dir}"/>
+    <path refid="library.jbox2d-library-2.2.1.1.classpath"/>
+  </path>
+  
+  <path id="real_path.runtime.module.classpath">
+    <pathelement location="${real_path.testoutput.dir}"/>
+    <pathelement location="${real_path.output.dir}"/>
+    <path refid="library.jbox2d-library-2.2.1.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.real_path">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.real_path">
+    <patternset refid="excluded.from.module.real_path"/>
+  </patternset>
+  
+  <path id="real_path.module.sourcepath">
+    <dirset dir="${module.real_path.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.real_path" depends="compile.module.real_path.production,compile.module.real_path.tests" description="Compile module Real Path"/>
+  
+  <target name="compile.module.real_path.production" depends="register.custom.compilers" description="Compile module Real Path; production classes">
+    <mkdir dir="${real_path.output.dir}"/>
+    <javac2 destdir="${real_path.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.real_path}/javac">
+      <compilerarg line="${compiler.args.real_path}"/>
+      <bootclasspath refid="real_path.module.bootclasspath"/>
+      <classpath refid="real_path.module.production.classpath"/>
+      <src refid="real_path.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.real_path"/>
+    </javac2>
+    
+    <copy todir="${real_path.output.dir}">
+      <fileset dir="${module.real_path.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.real_path.tests" depends="register.custom.compilers,compile.module.real_path.production" description="compile module Real Path; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.real_path" description="cleanup module">
+    <delete dir="${real_path.output.dir}"/>
+    <delete dir="${real_path.testoutput.dir}"/>
+  </target>
+</project>
