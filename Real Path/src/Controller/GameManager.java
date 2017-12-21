@@ -175,7 +175,6 @@ public class GameManager {
             }
             System.out.println(getGameMode());
         }
-        soundManager.playGameSound();
 
 
     }
