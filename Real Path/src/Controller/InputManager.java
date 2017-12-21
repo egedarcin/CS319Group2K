@@ -39,20 +39,20 @@ public class InputManager {
             {Vec2 vel  = new Vec2(body2.getLinearVelocity().x, 700.0f);
                 body2.setLinearVelocity(vel);}
         }
-        if(inputs.contains("LEFT")){
+        if(inputs.contains("J")){
             Vec2 vecc2 = new Vec2(-250.0f,body3.getLinearVelocity().y);
             body3.setLinearVelocity(vecc2);
         }
-        if(inputs.contains("RIGHT")){
+        if(inputs.contains("L")){
             Vec2 vecc2 = new Vec2(250.0f,body3.getLinearVelocity().y);
             body3.setLinearVelocity(vecc2);
         }
-        if(inputs.contains("UP")){
+        if(inputs.contains("I")){
             if(manager.isTouch(2))
             {Vec2 vel  = new Vec2(body3.getLinearVelocity().x, 700.0f);
                 body3.setLinearVelocity(vel);}
         }
-        if(inputs.contains("DOWN")){
+        if(inputs.contains("K")){
             Vec2 vecc2 = new Vec2(0.0f,body3.getLinearVelocity().y - 5f);
             body3.setLinearVelocity(vecc2);
         }
