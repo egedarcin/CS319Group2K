@@ -12,7 +12,7 @@ public class SoundManager {
     private Clip clip;
     public void playSound(String url) {
         try{
-        AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream(url));
+        AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getResource(url));
         clip = AudioSystem.getClip();
         clip.open(stream);
         clip.start();
