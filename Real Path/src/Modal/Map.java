@@ -55,7 +55,7 @@ public abstract class Map extends Parent {
 
         Image image = new Image(Ball.class.getResourceAsStream(url));
         iv.setImage(image);
-
+        getChildren().clear();
         getChildren().add(iv);
     }
 }

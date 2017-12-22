@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Real Path:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Real_Path_jar</output-path>
+    <root id="archive" name="Real Path.jar">
+      <element id="module-output" name="Real Path" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/.idea/libraries/jbox2d-library-2.2.1.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

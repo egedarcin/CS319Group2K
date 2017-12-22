@@ -35,38 +35,24 @@ public class InputManager {
         }
         if(inputs.contains("W")){
 
-            if(((body2.getContactList().contact.m_fixtureA.m_body.m_type== BodyType.STATIC)
-                    &&(body2.getPosition().y>body2.getContactList().contact.m_fixtureA.m_body.getPosition().y))||
-                    ((body2.getContactList().contact.m_fixtureB.m_body.m_type== BodyType.STATIC)
-                            &&(body2.getPosition().y>body2.getContactList().contact.m_fixtureB.m_body.getPosition().y)) ||
-                     ((body2.getContactList().contact.m_fixtureB.m_body.m_type== BodyType.DYNAMIC)
-                    &&(body2.getPosition().y>body2.getContactList().contact.m_fixtureB.m_body.getPosition().y))||
-                    ((body2.getContactList().contact.m_fixtureA.m_body.m_type== BodyType.DYNAMIC)
-                            &&(body2.getPosition().y>body2.getContactList().contact.m_fixtureA.m_body.getPosition().y)))
+            if(manager.isTouch(1))
             {Vec2 vel  = new Vec2(body2.getLinearVelocity().x, 700.0f);
                 body2.setLinearVelocity(vel);}
         }
-        if(inputs.contains("LEFT")){
+        if(inputs.contains("J")){
             Vec2 vecc2 = new Vec2(-250.0f,body3.getLinearVelocity().y);
             body3.setLinearVelocity(vecc2);
         }
-        if(inputs.contains("RIGHT")){
+        if(inputs.contains("L")){
             Vec2 vecc2 = new Vec2(250.0f,body3.getLinearVelocity().y);
             body3.setLinearVelocity(vecc2);
         }
-        if(inputs.contains("UP")){
-            if(((body3.getContactList().contact.m_fixtureA.m_body.m_type== BodyType.STATIC)
-                    &&(body3.getPosition().y>body3.getContactList().contact.m_fixtureA.m_body.getPosition().y))||
-                    ((body3.getContactList().contact.m_fixtureB.m_body.m_type== BodyType.STATIC)
-                    &&(body3.getPosition().y>body3.getContactList().contact.m_fixtureB.m_body.getPosition().y)) ||
-                    ((body3.getContactList().contact.m_fixtureA.m_body.m_type== BodyType.DYNAMIC)
-                    &&(body3.getPosition().y>body3.getContactList().contact.m_fixtureA.m_body.getPosition().y))||
-                    ((body3.getContactList().contact.m_fixtureB.m_body.m_type== BodyType.DYNAMIC)
-                    &&(body3.getPosition().y>body3.getContactList().contact.m_fixtureB.m_body.getPosition().y)))
+        if(inputs.contains("I")){
+            if(manager.isTouch(2))
             {Vec2 vel  = new Vec2(body3.getLinearVelocity().x, 700.0f);
                 body3.setLinearVelocity(vel);}
         }
-        if(inputs.contains("DOWN")){
+        if(inputs.contains("K")){
             Vec2 vecc2 = new Vec2(0.0f,body3.getLinearVelocity().y - 5f);
             body3.setLinearVelocity(vecc2);
         }

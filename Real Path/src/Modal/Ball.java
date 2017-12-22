@@ -25,8 +25,8 @@ public class Ball extends Map implements Movable {
     @Override
     public void create()
     {
-        this.setLayoutX(GameManager.toPixelPosX(getPosX())-manager.HEADSIZE);
-        this.setLayoutY(GameManager.toPixelPosY(getPosY())-manager.HEADSIZE );
+        this.setLayoutX(GameManager.toPixelPosX(getPosX())-manager.getBALL_RADIUS());
+        this.setLayoutY(GameManager.toPixelPosY(getPosY())-manager.getBALL_RADIUS() );
 
         //Create an JBox2D body defination for ball.
         BodyDef bd = new BodyDef();
@@ -42,7 +42,7 @@ public class Ball extends Map implements Movable {
         fd.density = 1.0f;
         fd.friction = 0.3f;
         if(ballKind == 1 ){ fd.restitution = 1.0f;}
-        else if(ballKind == 2){fd.restitution=7.0f; }
+        else if(ballKind == 2){fd.restitution=4.0f; }
 
 
         /**

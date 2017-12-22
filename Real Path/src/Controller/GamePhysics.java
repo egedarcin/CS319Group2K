@@ -14,9 +14,10 @@ public class GamePhysics {
 
 
     public static void setThereKick(boolean thereKick) {
+        SoundManager soundManager = new SoundManager();
         isThereKick = thereKick;
         if (thereKick){
-            SoundManager.kickSound();
+            soundManager.playKick();
         }
     }
 
